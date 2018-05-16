@@ -1,4 +1,4 @@
-def application(environ, start_response):
+def app(environ, start_response):
     start_response('200 OK', [('Content-Type', 'text/plain')])
     return [bytes('\r\n'.join(environ['QUERY_STRING'].split('&')),
-encoding="utf8")]
+                  encoding="utf8")]

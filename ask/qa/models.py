@@ -12,14 +12,18 @@ class QuestionManager(models.Manager):
 
 class Question(models.Model):
    object=QuestionManager()
-   title=models.CharField(max_lenght=255)
+   title = models.CharField(default="", max_length=1024)
    text=models.TextField(default="")
    added_at=models.DateField(null=True)
    rating=models.IntegerField(default=0)
    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
    likes = models.ManyToManyField(User, related_name="q_to_likes")
 
+   def __unicode__(self):
+       return self.title
 
+   def get_url(self):
+       return "/question/{}/".format(self.id)
 
 class Answer(models.Model):
     text = models.TextField(default="")
